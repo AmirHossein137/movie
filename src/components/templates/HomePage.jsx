@@ -1,7 +1,9 @@
+import MovieList from "../movie/MovieList"
+
 const HomePage = () => {
   return (
-    <div className="flex flex-col gap-7">
-        
+    <div className="mt-10 mb-10">
+        <MovieList />
     </div>
   )
 }

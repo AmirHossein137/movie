@@ -1,14 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import MovieCard from "../modules/MovieCard";
 
-const SliderTop = () => {
-  function getImage(number) {
-    return `http://busterhtml.mbkip3ms9u-e92498n216kr.p.temp-site.link/images/uploads/slider${number}.jpg`;
-  }
-
+const MovieListSlider = ({movies}) => {
   return (
-    <Swiper
+    <div>
+        <Swiper
       breakpoints={{
         320: {
           slidesPerView: 1.3,
@@ -31,16 +29,14 @@ const SliderTop = () => {
       loop
       className="mySwiper"
     >
-      {[1, 2, 3, 4].map((numberImg) => (
-        <SwiperSlide key={numberImg}>
-          <img
-            className="w-full"
-            src={getImage(numberImg)}
-          />
+      {movies.map((img , index) => (
+        <SwiperSlide key={index}>
+        <MovieCard img={img}/>
         </SwiperSlide>
       ))}
     </Swiper>
-  );
-};
+    </div>
+  )
+}
 
-export default SliderTop;
+export default MovieListSlider
