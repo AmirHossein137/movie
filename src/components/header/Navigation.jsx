@@ -18,16 +18,16 @@ const Navigation = () => {
           </div>
           <ul className="hidden md:flex items-center gap-5">
             <l1>
-              <a href="#">Movies</a>
+              <a href="#" className="transition duration-200 hover:text-white">Movies</a>
             </l1>
             <l1>
-              <a href="#">Tv Shows</a>
+              <a href="#" className="transition duration-200 hover:text-white">Tv Shows</a>
             </l1>
             <l1>
-              <a href="#">People</a>
+              <a href="#" className="transition duration-200 hover:text-white">People</a>
             </l1>
             <l1>
-              <a href="#">More</a>
+              <a href="#" className="transition duration-200 hover:text-white">More</a>
             </l1>
           </ul>
         </div>
