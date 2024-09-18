@@ -1,3 +1,4 @@
+import Footer from "./components/footer/Footer"
 import Header from "./components/header/Header"
 import Layout from "./components/layout/Layout"
 import HomePage from "./components/templates/HomePage"
@@ -11,6 +12,7 @@ function App() {
     <Layout>
       <HomePage />
     </Layout>
+    <Footer />
     </>
   )
 }
