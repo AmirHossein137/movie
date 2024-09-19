@@ -3,7 +3,8 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import MovieCard from "../modules/MovieCard";
 
-const MovieListSlider = ({ movies }) => {
+const MovieListSlider = ({ movie }) => {
+  console.log(movie)
   return (
     <div>
       <Swiper
@@ -33,9 +34,14 @@ const MovieListSlider = ({ movies }) => {
         loop={true}
         className="mySwiper"
       >
-        {movies.map((img, index) => (
-          <SwiperSlide key={index}>
-            <MovieCard img={img} />
+        {movie.map((item) => (
+          <SwiperSlide key={item.id}>
+            <MovieCard
+              title={item.title}
+              id={item.id}
+              poster={item.poster_path}
+              rate={item.vote_average}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

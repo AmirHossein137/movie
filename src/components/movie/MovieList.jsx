@@ -1,14 +1,21 @@
+import { useEffect, useState } from "react";
 import MovieListSlider from "./MovieListSlider";
+import axios from "axios";
 
 const MovieList = () => {
-  const movies = [
-    "/slider1.jpg",
-    "/slider2.jpg",
-    "/slider3.jpg",
-    "/slider4.jpg",
-    "/slider2.jpg",
-    "/slider3.jpg",
-  ];
+  const [movie, setMovie] = useState([]);
+
+  async function getMovieList() {
+    const { data } = await axios.get(
+      "https://api.themoviedb.org/3/movie/popular?api_key=32313ce28319d492025b3bdf4df346db"
+    );
+    setMovie(data.results);
+  }
+
+  useEffect(() => {
+    getMovieList();
+  }, []);
+
 
   return (
     <>
@@ -22,7 +29,7 @@ const MovieList = () => {
             <li>In Theaters</li>
           </ul>
         </div>
-        <MovieListSlider movies={movies} />
+        <MovieListSlider movie={movie} />
       </div>
       <div className="mb-4">
         <div className="md:flex items-center gap-9 mb-7">
@@ -32,7 +39,7 @@ const MovieList = () => {
             <li>TV</li>
           </ul>
         </div>
-        <MovieListSlider movies={movies} />
+        <MovieListSlider movie={movie} />
       </div>
     </>
   );

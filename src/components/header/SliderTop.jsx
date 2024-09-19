@@ -1,11 +1,23 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const SliderTop = () => {
-  function getImage(number) {
-    return `http://busterhtml.mbkip3ms9u-e92498n216kr.p.temp-site.link/images/uploads/slider${number}.jpg`;
+  const [movies, setMovies] = useState([]);
+
+  async function MovieList() {
+    const { data } = await axios.get(
+      "https://api.themoviedb.org/3/movie/popular?api_key=32313ce28319d492025b3bdf4df346db"
+    );
+    console.log(data);
+    setMovies(data.results);
   }
+
+  useEffect(() => {
+    MovieList();
+  }, []);
 
   return (
     <Swiper
@@ -31,14 +43,12 @@ const SliderTop = () => {
       loop
       className="mySwiper"
     >
-      {[1, 2, 3, 4].map((numberImg) => (
-        <SwiperSlide key={numberImg}>
-          <img
-            className="w-full"
-            src={getImage(numberImg)}
-          />
+      {movies.map((movie) => (
+        <SwiperSlide key={movie.id}>
+          <img src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`} className="rounded-2xl"/>
         </SwiperSlide>
       ))}
+        
     </Swiper>
   );
 };
