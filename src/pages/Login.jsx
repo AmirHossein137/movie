@@ -1,21 +1,15 @@
 import { useState } from "react";
 import { useUserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const { login, successLogin } = useUserContext();
-  const navigate = useNavigate();
+  const { login } = useUserContext();
 
-  console.log(successLogin)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login(username, password);
-    if(successLogin === true) {
-      navigate("/");
-    }
   };
 
   return (

@@ -6,8 +6,8 @@ import UserProvider from "./context/UserContext.jsx";
 import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
-  <UserProvider>
+  <>
     <Toaster />
     <RouterProvider router={router} />
-  </UserProvider>
+  </>
 );

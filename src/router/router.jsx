@@ -6,10 +6,15 @@ import TvShow from "../pages/TvShow";
 import People from "../pages/People";
 import Movie from "../pages/Movie";
 import Login from "../pages/Login";
+import UserProvider from "../context/UserContext";
 
 export const router = createBrowserRouter([
   {
-    element: <App />,
+    element: (
+      <UserProvider>
+        <App />
+      </UserProvider>
+    ),
     children: [
       {
         path: "/",
@@ -32,9 +37,9 @@ export const router = createBrowserRouter([
         element: <People />,
       },
       {
-        path : '/login',
-        element : <Login />
-      }
+        path: "/login",
+        element: <Login />,
+      },
     ],
   },
 ]);

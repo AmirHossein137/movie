@@ -5,7 +5,7 @@ import { useUserContext } from "../../context/UserContext";
 
 const Navigation = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { user } = useUserContext();
+  const { user, logout } = useUserContext();
 
   const menuItem = [
     { title: "Movies", href: "/movies" },
@@ -45,7 +45,17 @@ const Navigation = () => {
         </div>
         <div className="hidden md:flex">
           {Object.keys(user).length ? (
-            <div>{user.username}</div>
+            <div className="flex items-center gap-4">
+              <span className="text-lg font-bold text-white">
+                {user.username}
+              </span>
+              <button
+                className="bg-rose-600 text-white py-2 px-5 rounded-lg transition duration-200 hover:bg-rose-800"
+                onClick={() => logout()}
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <ul className="flex items-center gap-6 uppercase">
               <li>

@@ -19,7 +19,7 @@ export function useUserContext() {
 export default function UserProvider({ children }) {
   const [user, setUser] = useState({});
   const [session, setSession] = useState(() => localStorage.getItem("session"));
-  const [successLogin , setSuccessLogin] = useState(null)
+  const navigate = useNavigate();
 
   async function getUserInfo() {
     const { data } = await axios.get(
@@ -35,6 +35,12 @@ export default function UserProvider({ children }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
+
+  function logout() {
+    setUser({});
+    setSession(null);
+    localStorage.clear();
+  }
 
   async function login(username, password) {
     try {
@@ -55,10 +61,11 @@ export default function UserProvider({ children }) {
       setSession(session.data.session_id);
       localStorage.setItem("session", session.data.session_id);
 
-      setSuccessLogin(session.data.success)
-
       if (session.data.success) {
         toast.success("Logged In...");
+        navigate("/", {
+          replace: true,
+        });
       }
     } catch {
       toast.error("Invalid username and password!");
@@ -66,7 +73,7 @@ export default function UserProvider({ children }) {
   }
 
   return (
-    <UserContext.Provider value={{ user, login, session , successLogin }}>
+    <UserContext.Provider value={{ user, login, session , logout }}>
       {children}
     </UserContext.Provider>
   );
