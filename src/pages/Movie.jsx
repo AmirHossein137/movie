@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import toast from "react-hot-toast";
+import { apiClient } from "../services/apiConfig";
 
 const Movie = () => {
   const { id } = useParams();
@@ -10,8 +11,7 @@ const Movie = () => {
   const { user, session } = useUserContext();
 
   const getMovieDetail = async () => {
-    const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=32313ce28319d492025b3bdf4df346db`
+    const res = await apiClient.get(`/movie/${id}`
     );
     setMovie(res.data);
   };

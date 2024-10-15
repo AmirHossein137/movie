@@ -10,7 +10,7 @@ const Header = () => {
       <div className="container mx-auto px-3">
       <Navigation />
       <SearchBox />
-      <SliderTop />
+      {/* <SliderTop /> */}
       </div>
     </header>
   );

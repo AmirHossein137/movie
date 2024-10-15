@@ -5,14 +5,14 @@ import MovieCard from "../modules/MovieCard";
 import { useEffect, useState } from "react";
 import { apiClient } from "../../services/apiConfig";
 
-const MovieListSlider = ({ type, activeTab }) => {
+const MovieListSlider = ({ mode, activeTab }) => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     (async () => {
-      const result = await apiClient(`/${type}/${activeTab}`);
+      const result = await apiClient(`/${mode}/${activeTab}`);
       setMovies(result.data.results);
     })();
-  }, [type, activeTab]);
+  }, [mode, activeTab]);
 
   console.log(movies);
 
@@ -48,7 +48,8 @@ const MovieListSlider = ({ type, activeTab }) => {
         {movies?.map((item) => (
           <SwiperSlide key={item.id}>
             <MovieCard
-              title={item.title}
+              mode={mode}
+              title={item.title || item.name}
               id={item.id}
               poster={item.poster_path}
               rate={item.vote_average}
