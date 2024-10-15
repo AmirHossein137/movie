@@ -2,9 +2,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import MovieCard from "../modules/MovieCard";
+import { useEffect, useState } from "react";
+import { apiClient } from "../../services/apiConfig";
 
-const MovieListSlider = ({ movie }) => {
-  console.log(movie)
+const MovieListSlider = ({ type, activeTab }) => {
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const result = await apiClient(`/${type}/${activeTab}`);
+      setMovies(result.data.results);
+    })();
+  }, [type, activeTab]);
+
+  console.log(movies);
+
   return (
     <div>
       <Swiper
@@ -34,7 +45,7 @@ const MovieListSlider = ({ movie }) => {
         loop={true}
         className="mySwiper"
       >
-        {movie.map((item) => (
+        {movies?.map((item) => (
           <SwiperSlide key={item.id}>
             <MovieCard
               title={item.title}

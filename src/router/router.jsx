@@ -7,6 +7,7 @@ import People from "../pages/People";
 import Movie from "../pages/Movie";
 import Login from "../pages/Login";
 import UserProvider from "../context/UserContext";
+import Profile from "../components/profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

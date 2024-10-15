@@ -3,7 +3,8 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { replace, useLocation, useNavigate } from "react-router-dom";
+import { apiClient } from "../services/apiConfig";
 
 const UserContext = createContext({});
 
@@ -17,16 +18,14 @@ export function useUserContext() {
 }
 
 export default function UserProvider({ children }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState({});
   const [session, setSession] = useState(() => localStorage.getItem("session"));
-  const navigate = useNavigate();
 
   async function getUserInfo() {
-    const { data } = await axios.get(
-      `${baseUrl}/account?api_key=${api_key}&session_id=${session}`
-    );
+    const { data } = await apiClient.get("/account");
     setUser(data);
-    console.log(data);
   }
 
   useEffect(() => {
@@ -42,25 +41,30 @@ export default function UserProvider({ children }) {
     localStorage.clear();
   }
 
+  useEffect(() => {
+    if (session) {
+      if (location.pathname === "/login") {
+        navigate("/profile", {
+          replace: true,
+        });
+      }
+    }
+  });
+
   async function login(username, password) {
     try {
-      const tokenResult = await axios.get(
-        `${baseUrl}/authentication/token/new?api_key=${api_key}`
-      );
-      const authorize = await axios.post(
-        `${baseUrl}/authentication/token/validate_with_login?api_key=${api_key}`,
+      const tokenResult = await apiClient.get(`/authentication/token/new`);
+      const authorize = await apiClient.post(
+        `/authentication/token/validate_with_login`,
         { username, password, request_token: tokenResult.data.request_token }
       );
 
-      const session = await axios.post(
-        `${baseUrl}/authentication/session/new?api_key=${api_key}`,
-        {
-          request_token: tokenResult.data.request_token,
-        }
-      );
+      const session = await apiClient.post(`/authentication/session/new`, {
+        request_token: tokenResult.data.request_token,
+      });
       setSession(session.data.session_id);
+      apiClient.defaults.params.session_id = session.data.session_id;
       localStorage.setItem("session", session.data.session_id);
-
       if (session.data.success) {
         toast.success("Logged In...");
         navigate("/", {
@@ -73,7 +77,7 @@ export default function UserProvider({ children }) {
   }
 
   return (
-    <UserContext.Provider value={{ user, login, session , logout }}>
+    <UserContext.Provider value={{ user, login, session, logout }}>
       {children}
     </UserContext.Provider>
   );

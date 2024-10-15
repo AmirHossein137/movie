@@ -1,35 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MovieListSlider from "./MovieListSlider";
-import axios from "axios";
 
 const MovieList = () => {
-  const [movie, setMovie] = useState([]);
+  const [MoviesTab, setMoviesTab] = useState("popular");
 
-  async function getMovieList() {
-    const { data } = await axios.get(
-      "https://api.themoviedb.org/3/movie/popular?api_key=32313ce28319d492025b3bdf4df346db"
-    );
-    setMovie(data.results);
+  const tabsListForMovie = [
+    { name: "Popular", path: "popular" },
+    { name: "Top Rated", path: "top_rated" },
+    { name: "Upcoming", path: "upcoming" },
+    { name: "Now Playing", path: "now_playing" },
+  ];
+
+  function handleChangeTab(tabName) {
+    return setMoviesTab(tabName);
   }
-
-  useEffect(() => {
-    getMovieList();
-  }, []);
-
-
   return (
     <>
-      <div className="mb-10">
+      <div className="my-10">
         <div className="md:flex items-center gap-9 mb-7">
-          <h2 className="text-2xl font-bold text-slate-200">Whats Popular</h2>
-          <ul className="flex-col gap-4 md:flex md:flex-row items-center md:gap-8 text-rose-300">
-            <li>Streaming</li>
-            <li>On TV</li>
-            <li>For Rent</li>
-            <li>In Theaters</li>
+          <h2 className="text-2xl font-bold text-slate-200">Movies</h2>
+          <ul className="flex-col gap-4 md:flex md:flex-row items-center md:gap-8">
+            {tabsListForMovie?.map((item, index) => (
+              <li
+                className={`cursor-pointer ${
+                  MoviesTab === item.path
+                    ? "text-yellow-500 font-bold"
+                    : "text-rose-400"
+                }`}
+                key={index}
+                onClick={() => handleChangeTab(item.path)}
+              >
+                {item.name}
+              </li>
+            ))}
           </ul>
         </div>
-        <MovieListSlider movie={movie} />
+        <MovieListSlider type="movie" activeTab={MoviesTab} />
       </div>
       <div className="mb-4">
         <div className="md:flex items-center gap-9 mb-7">
@@ -39,7 +45,7 @@ const MovieList = () => {
             <li>TV</li>
           </ul>
         </div>
-        <MovieListSlider movie={movie} />
+        <MovieListSlider />
       </div>
     </>
   );

@@ -11,7 +11,6 @@ const SliderTop = () => {
     const { data } = await axios.get(
       "https://api.themoviedb.org/3/movie/popular?api_key=32313ce28319d492025b3bdf4df346db"
     );
-    console.log(data);
     setMovies(data.results);
   }
 
