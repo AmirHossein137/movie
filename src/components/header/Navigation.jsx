@@ -11,7 +11,7 @@ const Navigation = () => {
   console.log(user);
 
   const menuItem = [
-    { title: "Movies", href: "/movies" },
+    { title: "Moviesssss", href: "/movies" },
     { title: "Tv Shows", href: "/tvshow" },
     { title: "People", href: "/people" },
   ];
