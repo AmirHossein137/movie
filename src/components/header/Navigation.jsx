@@ -1,13 +1,14 @@
-import { Menu } from "lucide-react";
+import { Menu, CircleUserRound } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import { ImgURL } from "../../helpers/ImgUrl";
 
 const Navigation = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user, logout } = useUserContext();
 
-  console.log(user)
+  console.log(user);
 
   const menuItem = [
     { title: "Movies", href: "/movies" },
@@ -47,9 +48,26 @@ const Navigation = () => {
         <div className="hidden md:flex">
           {Object.keys(user).length ? (
             <div className="flex items-center gap-4">
-              <span className="text-lg font-bold text-white">
-                {user.username}
-              </span>
+              <div className="dropdown">
+                <div tabIndex={0} className="btn flex py-2 px-5">
+                  <div className="flex items-center justify-center overflow-hidden rounded-full w-8 h-full border border-yellow-400">
+                    {user?.avatar?.tmdb?.avatar_path ? (
+                      <img src={ImgURL("w45" , user?.avatar?.tmdb?.avatar_path)} />
+                    ) : (
+                      <CircleUserRound />
+                    )}
+                  </div>
+                  {user.username}
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                >
+                  <li>
+                    <a>Profile</a>
+                  </li>
+                </ul>
+              </div>
               <button
                 className="bg-yellow-600 text-white py-2 px-5 rounded-lg transition duration-200 hover:bg-yellow-800"
                 onClick={() => logout()}

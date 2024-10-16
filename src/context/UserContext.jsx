@@ -21,6 +21,7 @@ export default function UserProvider({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState({});
+  const [loading , setLoading] = useState(false)
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [session, setSession] = useState(() => localStorage.getItem("session"));
 
@@ -60,6 +61,7 @@ export default function UserProvider({ children }) {
 
   async function login(username, password) {
     try {
+      setLoading(true)
       const tokenResult = await apiClient.get(`/authentication/token/new`);
       const authorize = await apiClient.post(
         `/authentication/token/validate_with_login`,
@@ -77,6 +79,7 @@ export default function UserProvider({ children }) {
         navigate("/", {
           replace: true,
         });
+        setLoading(false)
       }
     } catch {
       toast.error("Invalid username and password!");
@@ -85,7 +88,7 @@ export default function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, login, session, logout, favoriteMovies , FetchFavoriteMovies }}
+      value={{ user, login, session, logout, favoriteMovies , FetchFavoriteMovies , loading , setLoading }}
     >
       {children}
     </UserContext.Provider>

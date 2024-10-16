@@ -29,3 +29,22 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.searchBg {
+  background: linear-gradient(188deg, #000 -12.65%, #282828 107.84%);
+  box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.19);
+}
+
+
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #fff }
+    33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #fff}
+    66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #fff}
+    100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #fff }
+}

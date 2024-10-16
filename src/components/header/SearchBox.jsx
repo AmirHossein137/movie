@@ -36,23 +36,23 @@ const SearchBox = () => {
 
   return (
     <div>
-      <div className="w-full mt-9 h-14 flex items-center gap-3 border border-slate-700 rounded-xl px-4 bg-slate-600 mb-2">
+      <div className="w-full mt-9 h-14 flex items-center gap-3 border border-yellow-700 rounded-xl px-4 bg-stone-950 mb-2">
         <input
           type="text"
           placeholder="Search for a movie , TV Show or celebrity you are looking for"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 h-full bg-transparent outline-none placeholder:text-slate-400"
+          className="flex-1 h-full bg-transparent outline-none placeholder:text-white"
         />
         <Search />
       </div>
       <div
-        className={`w-full bg-white overflow-y-auto transition-all rounded-lg duration-500 ${
+        className={`w-full searchBg shadow-2xl overflow-y-auto transition-all rounded-lg duration-500 ${
           searchData.length && query.length ? "h-64" : "h-0"
         }`}
       >
         <div
-          className="text-black p-5 flex flex-col gap-3"
+          className="text-white p-5 flex flex-col gap-3"
           onClick={() => setSearchData([])}
         >
           {searchData?.map((item) => ShowSearchItem(item))}
