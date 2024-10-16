@@ -1,7 +1,5 @@
 import Navigation from "./Navigation"
 import SearchBox from './SearchBox'
-import SliderTop from "./SliderTop";
-
 const Header = () => {
 
 
