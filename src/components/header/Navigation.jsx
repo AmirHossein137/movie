@@ -7,11 +7,12 @@ const Navigation = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user, logout } = useUserContext();
 
+  console.log(user)
+
   const menuItem = [
     { title: "Movies", href: "/movies" },
     { title: "Tv Shows", href: "/tvshow" },
     { title: "People", href: "/people" },
-    { title: "More", href: "/" },
   ];
 
   return (
@@ -24,7 +25,7 @@ const Navigation = () => {
         <div className="flex items-center gap-10">
           <Link to={"/"} className="flex items-center gap-1 text-3xl font-bold">
             <span className="text-slate-300">Pico</span>
-            <span className="text-rose-600">Movies</span>
+            <span className="text-yellow-600">Movies</span>
           </Link>
           <ul className="hidden md:flex items-center gap-5">
             {menuItem.map((menu) => (
@@ -33,7 +34,7 @@ const Navigation = () => {
                   to={menu.href}
                   className={({ isActive }) =>
                     isActive
-                      ? "border-b border-rose-600 text-white font-bold"
+                      ? "border-b border-yellow-600 text-white font-bold"
                       : "text-slate-300"
                   }
                 >
@@ -50,7 +51,7 @@ const Navigation = () => {
                 {user.username}
               </span>
               <button
-                className="bg-rose-600 text-white py-2 px-5 rounded-lg transition duration-200 hover:bg-rose-800"
+                className="bg-yellow-600 text-white py-2 px-5 rounded-lg transition duration-200 hover:bg-yellow-800"
                 onClick={() => logout()}
               >
                 Logout
@@ -63,8 +64,8 @@ const Navigation = () => {
               </li>
               <li>
                 <Link
-                  to={"/signup"}
-                  className="bg-rose-700 px-7 py-3 rounded-3xl"
+                  to={"https://www.themoviedb.org/signup"}
+                  className="bg-yellow-700 px-7 py-3 rounded-3xl"
                   href="#"
                 >
                   Sign Up

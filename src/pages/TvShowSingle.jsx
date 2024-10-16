@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { apiClient } from "../services/apiConfig";
 import { useParams } from "react-router-dom";
 import { ImgURL } from "../helpers/ImgUrl";
+import { Heart } from 'lucide-react';
+
 
 const TvShowSingle = () => {
   const { id } = useParams();
@@ -13,6 +15,12 @@ const TvShowSingle = () => {
     await apiClient.get(`/tv/${id}`).then((res) => setTvDetail(res.data));
     setLoading(false);
   };
+
+  const addedFavorite = () => {
+
+  }
+
+  console.log(tvDetail)
 
   useEffect(() => {
     getTvDetail();
@@ -27,11 +35,12 @@ const TvShowSingle = () => {
         </div>
         <div className="col-span-8">
             <h1 className="text-3xl font-medium">{tvDetail?.name}</h1>
-            <div className="flex items-center gap-6">
-                <div className="flex items-center w-7">
-
+            <button className="flex items-center gap-3 group transition-all duration-300 my-6" onClick={addedFavorite}>
+                <div className="flex items-center justify-center w-12 h-12 border border-yellow-400 group-hover:border-rose-500 rounded-full">
+                  <Heart className="text-yellow-400 group-hover:text-rose-500"/>
                 </div>
-            </div>
+                <span className="text-yellow-400 group-hover:text-rose-500">Add To Favorite</span>
+            </button>
         </div>
       </div>
     </>

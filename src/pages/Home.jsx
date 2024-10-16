@@ -1,3 +1,4 @@
+
 import MovieList from "../components/movie/MovieList";
 
 const Home = () => {

@@ -21,11 +21,18 @@ export default function UserProvider({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState({});
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [session, setSession] = useState(() => localStorage.getItem("session"));
 
   async function getUserInfo() {
     const { data } = await apiClient.get("/account");
+    FetchFavoriteMovies(data?.id);
     setUser(data);
+  }
+
+  async function FetchFavoriteMovies(id) {
+    const dataFavorite = await apiClient.get(`account/${id}/favorite/movies`);
+    setFavoriteMovies(dataFavorite.data.results);
   }
 
   useEffect(() => {
@@ -77,7 +84,9 @@ export default function UserProvider({ children }) {
   }
 
   return (
-    <UserContext.Provider value={{ user, login, session, logout }}>
+    <UserContext.Provider
+      value={{ user, login, session, logout, favoriteMovies , FetchFavoriteMovies }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -11,8 +11,9 @@ body {
   font-family: "Nunito Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
-  background-color: #1e293b;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.99) 0px, transparent);
   color: #fff;
+  min-height: 100vh;
 }
 
 .swiper {
