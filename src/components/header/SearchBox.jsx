@@ -9,7 +9,6 @@ const SearchBox = () => {
   const [query, setQuery] = useState("");
   const [searchData, setSearchData] = useState([]);
 
-  console.log(searchData);
 
   useEffect(() => {
     const search = setTimeout(async () => {

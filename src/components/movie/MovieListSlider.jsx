@@ -19,7 +19,6 @@ const MovieListSlider = ({ mode, activeTab }) => {
     })();
   }, [mode, activeTab]);
 
-  console.log(movies);
 
   return (
     <div>

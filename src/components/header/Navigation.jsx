@@ -8,7 +8,6 @@ const Navigation = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user, logout } = useUserContext();
 
-  console.log(user);
 
   const menuItem = [
     { title: "Movies", href: "/movies" },
