@@ -8,7 +8,6 @@ const Navigation = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { user, logout } = useUserContext();
 
-
   const menuItem = [
     { title: "Movies", href: "/movies" },
     { title: "Tv Shows", href: "/tvshow" },
@@ -51,7 +50,9 @@ const Navigation = () => {
                 <div tabIndex={0} className="btn flex py-2 px-5">
                   <div className="flex items-center justify-center overflow-hidden rounded-full w-8 h-full border border-yellow-400">
                     {user?.avatar?.tmdb?.avatar_path ? (
-                      <img src={ImgURL("w45" , user?.avatar?.tmdb?.avatar_path)} />
+                      <img
+                        src={ImgURL("w45", user?.avatar?.tmdb?.avatar_path)}
+                      />
                     ) : (
                       <CircleUserRound />
                     )}
@@ -63,7 +64,7 @@ const Navigation = () => {
                   className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
                 >
                   <li>
-                    <a>Profile</a>
+                    <Link to={'/profile'}>Profile</Link>
                   </li>
                 </ul>
               </div>

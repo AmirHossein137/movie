@@ -6,11 +6,16 @@ import { Heart } from "lucide-react";
 import Imdb from "../components/modules/Imdb";
 import ReactStars from "react-rating-stars-component";
 import SingleMovieSkelet from "../components/skeleton/SingleMovieSkelet";
+import { useUserContext } from "../context/UserContext";
+import toast from "react-hot-toast";
 
 const TvShowSingle = () => {
   const { id } = useParams();
   const [tvDetail, setTvDetail] = useState();
-  const [loading, setLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const { loading, setLoading, FetchFavoriteTv, user, session, favoriteTv } =
+    useUserContext();
 
   const getTvDetail = async () => {
     setLoading(true);
@@ -22,16 +27,36 @@ const TvShowSingle = () => {
     });
   };
 
+  useEffect(() => {
+    if (tvDetail && favoriteTv.length) {
+      const favorite = favoriteTv.find((elem) => elem.id === tvDetail?.id);
+      console.log(favorite);
+      setIsFavorite(Boolean(favorite));
+    }
+  }, [tvDetail, favoriteTv]);
+
+  const addeddToFavritelist = async () => {
+    if (session) {
+      await apiClient.post(`account/${user.id}/favorite`, {
+        media_type: "tv",
+        media_id: tvDetail.id,
+        favorite: !isFavorite,
+      });
+
+      FetchFavoriteTv();
+      toast.success(
+        `${tvDetail?.title || tvDetail?.name} ${
+          isFavorite ? "Removed" : "Added"
+        } Add To Favorite List`
+      );
+    } else {
+      toast.error("Please First Login...");
+    }
+  };
 
   const handleRating = async (newRating) => {
     await apiClient.post(`/movie/${tvDetail.id}/rating`, { value: newRating });
   };
-
-  // const addedFavorite = () => {
-
-  // }
-
-  console.log(tvDetail);
 
   useEffect(() => {
     getTvDetail();
@@ -55,7 +80,7 @@ const TvShowSingle = () => {
                 {tvDetail?.name || tvDetail?.title}
               </h1>
               <div className="flex items-center gap-6">
-                {/* <div>
+                <div>
                   {isFavorite ? (
                     <button
                       className="flex items-center gap-3 group transition-all duration-300"
@@ -81,7 +106,7 @@ const TvShowSingle = () => {
                       </span>
                     </button>
                   )}
-                </div> */}
+                </div>
                 <Link to={`https://www.imdb.com/title/${tvDetail?.imdb_id}`}>
                   <Imdb />
                 </Link>

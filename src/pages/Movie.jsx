@@ -33,7 +33,7 @@ const Movie = () => {
   };
 
   useEffect(() => {
-    if ((movie, favoriteMovies.length)) {
+    if (movie && favoriteMovies.length) {
       const favorite = favoriteMovies.find((elem) => elem.id === movie?.id);
       setIsFavorite(Boolean(favorite));
     }

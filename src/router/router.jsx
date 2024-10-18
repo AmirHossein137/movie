@@ -7,7 +7,7 @@ import People from "../pages/People";
 import Movie from "../pages/Movie";
 import Login from "../pages/Login";
 import UserProvider from "../context/UserContext";
-import Profile from "../components/profile/Profile";
+import Profile from "../pages/Profile";
 import TvShowSingle from "../pages/TvShowSingle";
 
 export const router = createBrowserRouter([

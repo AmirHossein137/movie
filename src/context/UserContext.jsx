@@ -21,19 +21,26 @@ export default function UserProvider({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState({});
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [favoriteTv, setFavoriteTv] = useState([]);
   const [session, setSession] = useState(() => localStorage.getItem("session"));
 
   async function getUserInfo() {
     const { data } = await apiClient.get("/account");
     FetchFavoriteMovies(data?.id);
+    FetchFavoriteTv(data?.id);
     setUser(data);
   }
 
   async function FetchFavoriteMovies(id) {
     const dataFavorite = await apiClient.get(`account/${id}/favorite/movies`);
     setFavoriteMovies(dataFavorite.data.results);
+  }
+
+  async function FetchFavoriteTv(id) {
+    const tvFavorite = await apiClient.get(`account/${id}/favorite/tv`);
+    setFavoriteTv(tvFavorite.data.results);
   }
 
   useEffect(() => {
@@ -61,7 +68,7 @@ export default function UserProvider({ children }) {
 
   async function login(username, password) {
     try {
-      setLoading(true)
+      setLoading(true);
       const tokenResult = await apiClient.get(`/authentication/token/new`);
       const authorize = await apiClient.post(
         `/authentication/token/validate_with_login`,
@@ -79,7 +86,7 @@ export default function UserProvider({ children }) {
         navigate("/", {
           replace: true,
         });
-        setLoading(false)
+        setLoading(false);
       }
     } catch {
       toast.error("Invalid username and password!");
@@ -88,7 +95,18 @@ export default function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, login, session, logout, favoriteMovies , FetchFavoriteMovies , loading , setLoading }}
+      value={{
+        user,
+        login,
+        session,
+        logout,
+        favoriteMovies,
+        FetchFavoriteMovies,
+        loading,
+        setLoading,
+        FetchFavoriteTv,
+        favoriteTv,
+      }}
     >
       {children}
     </UserContext.Provider>
