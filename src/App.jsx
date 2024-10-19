@@ -5,7 +5,8 @@ import Header from "./components/header/Header";
 function App() {
   const location = useLocation();
   return (
-    <div className={location.pathname === "/login" ? "" : "container mx-auto px-4"}
+    <div
+      className={location.pathname === "/login" ? "" : "container mx-auto px-4"}
     >
       {location.pathname !== "/login" ? <Header /> : ""}
       <Outlet />
