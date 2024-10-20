@@ -46,12 +46,11 @@ const Movie = () => {
         media_id: movie.id,
         favorite: !isFavorite,
       });
-
       FetchFavoriteMovies();
       toast.success(
         `${movie.title} ${
           isFavorite ? "Removed" : "Added"
-        } Add To Favorite List`
+        } Favorite List`
       );
     } else {
       toast.error("Please First Login...");
