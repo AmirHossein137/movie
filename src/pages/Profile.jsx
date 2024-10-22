@@ -2,14 +2,19 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import { ImgURL } from "../helpers/ImgUrl";
 import { apiClient } from "../services/apiConfig";
-import FavoriteSkeleton from "../components/skeleton/FavoriteSkeleton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LoaderSpinner from "../components/LoaderSpinner";
 
 const Profile = () => {
-  const { user, loading, setLoading } = useUserContext();
+  const { user, loading, setLoading , session } = useUserContext();
   const [favoriteData, setFavoriteData] = useState([]);
-  const [updated , setUpdated] = useState(false)
+  const navigate = useNavigate()
+  const [updated, setUpdated] = useState(false);
   const [favoriteCategory, setFavoriteCategory] = useState("movies");
+
+  if(!session){
+    navigate("/login")
+  }
 
   const FavList = [
     { name: "Movie", url: "movies" },
@@ -32,25 +37,29 @@ const Profile = () => {
 
   const removeFromFavorite = async (id) => {
     if (favoriteCategory === "movies") {
+      setLoading(true);
       await apiClient.post(`account/${user.id}/favorite`, {
         media_type: "movie",
         media_id: id,
         favorite: false,
       });
-      setUpdated(!updated)
+      setLoading(false);
+      setUpdated(!updated);
     } else {
+      setLoading(true);
       await apiClient.post(`account/${user.id}/favorite`, {
         media_type: "tv",
         media_id: id,
         favorite: false,
       });
-      setUpdated(!updated)
+      setLoading(false);
+      setUpdated(!updated);
     }
   };
 
   useEffect(() => {
     getDetailsFavorite();
-  }, [favoriteCategory , updated]);
+  }, [favoriteCategory, updated]);
 
   return (
     <div className="w-full my-6">
@@ -84,11 +93,10 @@ const Profile = () => {
         </div>
         <div>
           {loading ? (
-            Array(favoriteData.length)
-              .fill()
-              .map((_, index) => <FavoriteSkeleton key={index} />)
+            <LoaderSpinner />
           ) : (
             <div className="flex flex-col gap-5 mt-5">
+              {favoriteData?.length === 0 && <span className="text-lg font-bold">No Items Found </span>}
               {favoriteData?.map((item) => (
                 <div
                   key={item.id}
@@ -113,13 +121,13 @@ const Profile = () => {
                             ? `/movies/${item?.id}`
                             : `/tvshow/${item?.id}`
                         }
-                        className="w-36 h-11 bg-yellow-600 rounded-lg flex items-center justify-center"
+                        className="w-24 sm:w-36 h-11 bg-yellow-600 rounded-lg flex items-center justify-center"
                       >
                         Show
                       </Link>
                       <button
                         onClick={() => removeFromFavorite(item?.id)}
-                        className="w-36 h-11 bg-rose-600 rounded-lg"
+                        className="w-24 sm:w-36 h-11 bg-rose-600 rounded-lg"
                       >
                         Remove
                       </button>

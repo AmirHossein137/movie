@@ -6,11 +6,11 @@ function App() {
   const location = useLocation();
   return (
     <div
-      className={location.pathname === "/login" ? "" : "container mx-auto px-4"}
+      className={location.pathname === "/login" ? "" : "container mx-auto px-4 mb-5"}
     >
       {location.pathname !== "/login" ? <Header /> : ""}
       <Outlet />
-      {location.pathname !== "/login" ? <Footer /> : ""}
+      {/* {location.pathname !== "/login" ? <Footer /> : ""} */}
     </div>
   );
 }

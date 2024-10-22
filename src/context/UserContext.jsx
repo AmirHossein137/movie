@@ -68,7 +68,6 @@ export default function UserProvider({ children }) {
 
   async function login(username, password) {
     try {
-      setLoading(true);
       const tokenResult = await apiClient.get(`/authentication/token/new`);
       const authorize = await apiClient.post(
         `/authentication/token/validate_with_login`,
@@ -86,7 +85,6 @@ export default function UserProvider({ children }) {
         navigate("/", {
           replace: true,
         });
-        setLoading(false);
       }
     } catch {
       toast.error("Invalid username and password!");

@@ -32,7 +32,7 @@ const MovieList = () => {
       <div className="my-10">
         <div className="md:flex items-center gap-9 mb-7">
           <h2 className="text-2xl font-bold text-slate-200">Movies</h2>
-          <ul className="flex-col gap-4 md:flex md:flex-row items-center md:gap-8">
+          <ul className="flex items-center gap-8 overflow-x-auto whitespace-nowrap pb-3 sm:pb-0 mt-4 sm:mt-0">
             {tabsListForMovie?.map((item, index) => (
               <li
                 className={`cursor-pointer ${
@@ -53,7 +53,7 @@ const MovieList = () => {
       <div className="mb-4">
         <div className="md:flex items-center gap-9 mb-7">
           <h2 className="text-2xl font-bold text-slate-200">Tv Series</h2>
-          <ul className="flex-col gap-4 md:flex md:flex-row items-center md:gap-8 text-rose-300">
+          <ul className="flex items-center gap-8 text-rose-300 overflow-x-auto whitespace-nowrap pb-3 sm:pb-0 mt-4 sm:mt-0">
           {tabsListForTV?.map((item, index) => (
               <li
                 className={`cursor-pointer ${

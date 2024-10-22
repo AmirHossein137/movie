@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import UserProvider from "../context/UserContext";
 import Profile from "../pages/Profile";
 import TvShowSingle from "../pages/TvShowSingle";
+import PeopleSingle from "../pages/PeopleSingle";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "/people",
         element: <People />,
+      },
+      {
+        path: "/people/:id",
+        element: <PeopleSingle />,
       },
       {
         path: "/login",
