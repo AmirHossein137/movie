@@ -17,7 +17,7 @@ const Login = () => {
       <div className="absolute w-full h-full bg-loginBg inset-0"></div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 w-[500px] z-10 bg-[#08090ad4] rounded-xl p-5"
+        className="flex flex-col gap-6 max-w-[90%] w-[500px] z-10 bg-[#08090ad4] rounded-xl p-5"
       >
         <h1 className="text-center font-bold text-2xl">Login Form</h1>
         <input
